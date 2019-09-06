@@ -1,0 +1,23 @@
+{
+  "name": "blogserver",
+  "version": "1.0.0",
+  "description": "Blockchain Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BangDaeui/BLogServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BangDaeui/BLogServer/issues"
+  },
+  "homepage": "https://github.com/BangDaeui/BLogServer#readme",
+  "dependencies": {
+    "mysql": "^2.17.1",
+    "socket.io": "^2.2.0"
+  }
+}
