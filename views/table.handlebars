@@ -1,0 +1,28 @@
+<table border=1>
+    <tr>
+        <th>
+            No
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Hash
+        </th>
+    </tr>
+    <tbody>
+    {{#each result}}
+        <tr>
+            <td>
+                {{this.Ex_No}}
+            </td>
+            <td>
+                {{this.Ex_Name}}
+            </td>
+            <td>
+                {{this.Ex_Hash}}
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
