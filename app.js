@@ -1,11 +1,11 @@
-// express 웹서버 돌리려고
+// express 웹서버 모듈
 const express = require('express');
 const app = express();
 
-// path 폴더 경로
+// path 경로 관련 모듈
 const path = require('path');
 
-// handlebars 웹에 데이터 보여줄려고
+// handlebars 서버 사이드 템플릿 엔진
 const exphbs = require('express-handlebars');
 
 // mysql SQL
@@ -28,6 +28,8 @@ app.set('view engine', 'handlebars');
 
 // Static folder 폴더 사용
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
+// ####################################################################
 
 // [Get] Users
 app.get('/Users.html', async (req, res) => {
@@ -60,7 +62,7 @@ app.get('/table', (req, res) => {
 
 // [Get] Dashboard
 app.get('/', async (req, res) => {
-    res.render('dashboard', {});
+    res.render('Users', {});
 })
  
 app.listen(3000, () => console.log('Server Start'));
