@@ -32,12 +32,12 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 // ####################################################################
 
 // [Get] Users
-app.get('/Users.html', async (req, res) => {
+app.get('/Users', async (req, res) => {
     res.render('Users', {});
 })
 
 // [Get] UserLogs http://localhost:3000/UserLogs.html
-app.get('/UserLogs.html', async (req, res) => {
+app.get('/UserLogs', async (req, res) => {
     
     // View폴더 안에있는 UserLogs.handlebars 파일 보이게 해줌
     res.render('UserLogs', {});
@@ -45,7 +45,7 @@ app.get('/UserLogs.html', async (req, res) => {
 })
 
 // [Get] Logs
-app.get('/Logs.html', async (req, res) => {
+app.get('/Logs', async (req, res) => {
     res.render('Logs', {});
 })
 

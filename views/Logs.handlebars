@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -23,6 +24,7 @@
         requirejs.config({
             baseUrl: '.'
         });
+
     </script>
     <!-- Dashboard Core -->
     <link href="../public/assets/css/dashboard.css" rel="stylesheet" />
@@ -45,12 +47,12 @@
             <div class="header py-4">
                 <div class="container">
                     <div class="d-flex">
-                        <a class="header-brand" href="./Users.html">
+                        <a class="header-brand" href="./Users">
                             <img src="../public/BLOG.PNG" class="header-brand-img" alt="tabler logo"> BLog
                         </a>
                         <div class="d-flex order-lg-2 ml-auto">
                             <div class="dropdown">
-                                <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                                <a class="nav-link pr-0 leading-none" data-toggle="dropdown">
                                     <span class="ml-2 d-none d-lg-block">
                                         <span class="text-default">Blog</span>
                                         <small class="text-muted d-block mt-1">Administrator</small>
@@ -78,10 +80,10 @@
                         <div class="col-lg order-lg-first">
                             <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                                 <li class="nav-item">
-                                    <a href="./Users.html" class="nav-link"><i class="fe fe-user"></i> Users</a>
+                                    <a href="./Users" class="nav-link"><i class="fe fe-user"></i> Users</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="./Logs.html" class="nav-link active" data-toggle="dropdown"><i class="fe fe-calendar"></i> Logs</a>
+                                    <a href="./Logs" class="nav-link active" data-toggle="dropdown"><i class="fe fe-calendar"></i> Logs</a>
                                 </li>
                             </ul>
                         </div>
@@ -90,16 +92,14 @@
             </div>
             <div class="my-3 my-md-5">
                 <div class="container">
-                    <div class="page-header">
-                        <h1 class="page-title">
-                            Logs
-                        </h1>
-                    </div>
                     <div class="row row-cards">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Application Logs</h3>
+                                    <div class="card-options">
+                                        <button type="button" class="btn btn-cyan"><i class="fe fe-refresh-cw"> </i> Refresh Hash Value</button>
+                                    </div>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table card-table table-vcenter text-nowrap datatable">
@@ -162,6 +162,7 @@
                                         require(['datatables', 'jquery'], function(datatable, $) {
                                             $('.datatable').DataTable();
                                         });
+
                                     </script>
                                 </div>
                             </div>
@@ -186,4 +187,6 @@
             </div>
         </footer>
     </div>
-</body></html>
+</body>
+
+</html>
