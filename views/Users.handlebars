@@ -90,11 +90,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{#each result}}
                                             <tr>
-                                                <td><span class="text-muted">1</span></td>
-                                                <td>김현겸</td>
+                                                <td><span class="text-muted">{{this.User_No}}</span></td>
+                                                <td>{{this.User_Name}}</td>
                                                 <td>
-                                                    192.168.0.145
+                                                   {{this.User_IP}}
                                                 </td>
                                                 <td>
                                                     <div class="clearfix">
@@ -110,62 +111,12 @@
                                                     </div>
                                                 </td>
                                                 <td align=right>
-                                                    <a class="icon" href="./UserLogs">
+                                                    <a class="icon" href="./UserLogs/{{this.User_No}}">
                                                         <i class="fe fe-edit"></i> View Logs
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td><span class="text-muted">2</span></td>
-                                                <td><a href="invoice.html" class="text-inherit">정호석</a></td>
-                                                <td>
-                                                    192.168.0.150
-                                                </td>
-                                                <td>
-                                                    <div class="clearfix">
-                                                        <div class="float-left">
-                                                            <strong>80%</strong>
-                                                        </div>
-                                                        <div class="float-right">
-                                                            <small class="text-muted">16 Dec, 2019 - 19 Dec, 2019</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="progress progress-xs">
-                                                        <div class="progress-bar bg-yellow" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                                <td align=right>
-                                                    <a class="icon" href="./UserLogs">
-                                                        <i class="fe fe-edit"></i> View Logs
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="text-muted">3</span></td>
-                                                <td><a href="invoice.html" class="text-inherit">이정민</a></td>
-                                                <td>
-                                                    192.168.0.155
-                                                </td>
-                                                <td>
-                                                    <div class="clearfix">
-                                                        <div class="float-left">
-                                                            <strong>42%</strong>
-                                                        </div>
-                                                        <div class="float-right">
-                                                            <small class="text-muted">16 Dec, 2019 - 19 Dec, 2019</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="progress progress-xs">
-                                                        <div class="progress-bar bg-red" role="progressbar" style="width: 42%" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                                <td align=right>
-                                                    <a class="icon" href="./UserLogs">
-                                                        <i class="fe fe-edit"></i> View Logs
-                                                    </a>
-                                                </td>
-                                            </tr>
-
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                     <script>

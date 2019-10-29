@@ -72,7 +72,7 @@
                 <div class="container">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><b>김현겸</b></h3>
+                            <h3 class="card-title"><b>{{#each result1}}{{this.User_Name}}{{/each}}</b></h3>
                             <div class="card-options">
                                 <button type="button" class="btn btn-indigo" onclick="javascript:window.print();"><i class="fe fe-printer"></i> Print Logs</button>
                             </div>
@@ -86,12 +86,14 @@
                                         <th>User IP</th>
                                         <th>Last Log Update</th>
                                     </tr>
+                                    {{#each result1}}
                                     <tr>
-                                        <td>1</td>
-                                        <td>김현겸</td>
-                                        <td>192.168.0.145</td>
-                                        <td>19 Dec 2019</td>
+                                        <td>{{this.User_No}}</td>
+                                        <td>{{this.User_Name}}</td>
+                                        <td>{{this.User_IP}}</td>
+                                        <td>{{this.User_Log}}</td>
                                     </tr>
+                                    {{/each}}
                                 </table>
                             </div>
                             <div class="table-responsive push">
@@ -104,54 +106,20 @@
                                         <th class="text-left" style="width: 1%">Blockchain Hash Value</th>
                                         <th class="text-left" style="width: 10%">Check</th>
                                     </tr>
+                                    {{#each result2}}
                                     <tr>
-                                        <td class="text-center">1</td>
+                                        <td class="text-center">{{this.App_No}}</td>
                                         <td class="text-left">
-                                            <p class="font-w600 mb-1">ApplicationLog_20191216</p>
+                                            <p class="font-w600 mb-1">{{this.App_Name}}</p>
                                         </td>
                                         <td class="text-left">
-                                            16 Dec 2019
+                                            {{this.App_Time}}
                                         </td>
-                                        <td class="text-left">0xfc5e038d38a57032085441e7fe7010b00</td>
-                                        <td class="text-left">0xfc5e038d38a57032085441e7fe7010b0</td>
+                                        <td class="text-left">{{this.App_Hash}}</td>
+                                        <td class="text-left">{{this.App_Hash}}</td>
                                         <td class="text-left"><span class="status-icon bg-success"></span>Good</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td class="text-left">
-                                            <p class="font-w600 mb-1">ApplicationLog_20191217</p>
-                                        </td>
-                                        <td class="text-left">
-                                            17 Dec 2019
-                                        </td>
-                                        <td class="text-left">0xf84b03bb42ddf8554559ca84f6d3f066</td>
-                                        <td class="text-left">0xf84b03bb42ddf8554559ca84f6d3f066</td>
-                                        <td class="text-left"><span class="status-icon bg-success"></span>Good</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td class="text-left">
-                                            <p class="font-w600 mb-1">ApplicationLog_20191218</p>
-                                        </td>
-                                        <td class="text-left">
-                                            18 Dec 2019
-                                        </td>
-                                        <td class="text-left">0x66d23f9aa9b01ae1c0e47a6c60089bad</td>
-                                        <td class="text-left">0x66d23f9aa9b01ae1c0e47a6c60089bad</td>
-                                        <td class="text-left"><span class="status-icon bg-success"></span>Good</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">4</td>
-                                        <td class="text-left">
-                                            <p class="font-w600 mb-1">ApplicationLog_20191219</p>
-                                        </td>
-                                        <td class="text-left">
-                                            19 Dec 2019
-                                        </td>
-                                        <td class="text-left">0xe1ce9dc6aa76b33ee5b1d0d45593a00e</td>
-                                        <td class="text-left">0xe1ce9dc6aa76b33ee5b1d0d45593a00e</td>
-                                        <td class="text-left"><span class="status-icon bg-success"></span>Good</td>
-                                    </tr>
+                                    {{/each}}
                                 </table>
                             </div>
                         </div>
