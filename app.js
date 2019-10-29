@@ -5,6 +5,9 @@ const app = express();
 // path 경로 관련 모듈
 const path = require('path');
 
+// net
+const net = require('net');
+
 // handlebars 서버 사이드 템플릿 엔진
 const exphbs = require('express-handlebars');
 
@@ -29,14 +32,20 @@ app.set('view engine', 'handlebars');
 // Static folder 폴더 사용
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// ####################################################################
+// #################################################################### Hyperledger Fabric SDK
+
+
+
+// #################################################################### Web Application
 
 // [Get] Users
+// 데이터베이스에 있는 사용자 데이터 웹에 보여주기
 app.get('/Users', async (req, res) => {
     res.render('Users', {});
 })
 
-// [Get] UserLogs http://localhost:3000/UserLogs.html
+// [Get] UserLogs http://localhost:3000/UserLogs
+// 데이터베이스에 있는 사용자 별 데이터 웹에 보여주기
 app.get('/UserLogs', async (req, res) => {
     
     // View폴더 안에있는 UserLogs.handlebars 파일 보이게 해줌
@@ -45,6 +54,7 @@ app.get('/UserLogs', async (req, res) => {
 })
 
 // [Get] Logs
+// 데이터베이스에 있는 로그 데이터 웹에 보여주기
 app.get('/Logs', async (req, res) => {
     res.render('Logs', {});
 })
@@ -66,3 +76,24 @@ app.get('/', async (req, res) => {
 })
  
 app.listen(3000, () => console.log('Server Start'));
+
+// #################################################################### Socket
+
+var server = net.createServer(function (socket) {
+    socket.on('data', function (data) {
+        console.log(data);
+    });
+        
+    socket.on('close', function () {
+        console.log('Client disconnted');
+    });
+        
+    server.on('error', function (err) {
+        console.log('err' + err);
+    });
+}); 
+
+
+server.listen(9000, function () {
+    console.log('listening on 9000');
+});
