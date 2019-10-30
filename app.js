@@ -75,7 +75,7 @@ app.get('/', async (req, res) => {
     res.render('Users', {});
 })
 
-app.listen(3000, () => console.log('Server Start'));
+app.listen(3000, () => console.log('Server Start'));    
 
 // #################################################################### Socket
 
@@ -83,22 +83,22 @@ var server = net.createServer(function (socket) { //net 모듈을 이용해 서�
 
     socket.on('data', function (data) {
 
-        var detach = data.toString().split('*'); // 많은 로그를 받을 때 로그마다 맨 뒤에 있는 구분자를 스플릿해서 구분한다
+        var detach = data.toString().split('*'); // 많은 로그를 받을 때 * 구문자를 기준으로 나누어 차례대로 detach 배열에 넣는다.
         console.log(detach);
 
-        for (i = 0; i < detach.length - 1; i++) {
+        for (i = 0; i < detach.length - 1; i++) {// 2개 로그를 보냈을 시 detach 배열은 [첫번째 로그 정보],[두번째 로그 정보],[] 같이 마지막에 빈 배열이 남는다, 로그정보만 for문을 돌리면 되어 detach.length -1을 한다.
 
             list(detach[i]);
 
         };
 
         socket.on('close', function () {
-            console.log('Client disconnted'); //db 전송 끝났을 때 
+            console.log('Client disconnted'); //db 전송 끝남 알림.
 
         });
 
         server.on('error', function (err) {
-            console.log('err' + err); //서버 에러 생겼을 때
+            console.log('err' + err); //서버 에러 알림.
         });
 
 
@@ -110,31 +110,32 @@ var server = net.createServer(function (socket) { //net 모듈을 이용해 서�
 
 function list(p1) {
 
-    var ApplicationLog = "insert into ApplicationLog(App_User,App_Name,App_Time, App_Hash) values (?,?,now(),?)"; //ApplicationLog 테이블 sql 구문
-    var ExampleTable = "update ApplicationLog set App_Hash = '?' where App_Name = '?' "; //update 할 날짜와 Hash값
-    var sql1 = 'select User_No from User where User_IP = ?';
+    var ApplicationLog = "insert into ApplicationLog(App_User,App_Name,App_Time, App_Hash) values (?,?,now(),?)"; //ApplicationLog 테이블에 클라이언트에서 받는 로그 정보 전달 구문
+    var update_AppLog = "update ApplicationLog set App_Hash = '?' where App_Name = '?' "; //Application 테이블에 로그 값 업데이트 구문
+    var sql1 = 'select User_No from User where User_IP = ?'; // User 테이블에서 클라이언트에서 받은 IP의 User_NO 값 찾는 구문 
 
-    var divide = p1.toString().split('@'); //AppHash , ApplicaionLog 중 어떤 테이블에 들어갈 로그인지 확인하기 위해 클라이언트에게 받을 때 구분자 앞에 숫자를 넣어 어디테이블에 들어갈지 알려주는데 우선 구분자를 지운다
-    var verification = divide[0]; //위에서 구분자를 지우면 맨 앞 배열에 1또는 2로 어느 테이블 로그인지 알려주는데 첫번 째 배열 숫자를 verification 변수에 저장한다
+    var divide = p1.toString().split('@'); // detach에서 @문자를 기준으로 배열로 나눈다
+    var verification = divide[0]; // divide의 값은 [1or2],[ip주소],[파일명],[해쉬값] 인데 첫번째 배열의 값인 1or2는 insert/update 를 확인하기 위한 구문자이므로 지우기 전 verication 변수에 저장한다
     divide.shift(); //첫번째 배열 값을 verification 변수에 저장했으므로 지운다 
     console.log(divide);
     if (verification == 1) {
 
-        conn.query(sql1, divide[0], function (err, tmp, fields) {
-
+        conn.query(sql1, divide[0], function (err, tmp, fields) {//sql1 구문에서 찾은 User_No 값은 tmp배열에 저장된다.
+            
             conn.query(ApplicationLog, [tmp[0].User_No, divide[1], divide[2]], function (err, tmp, fields) {
                 console.log(err);
-            }); //verification 값이 1이면 데이터베이스에 쿼리문을 보내 AppHash 테이블에 저장한다     
+            
+            }); //verification 값이 1이면 User테이블에서 ip에 맞는 User_No 값을 찾아 User_NO,파일명,해쉬값 순으로 DB에 넣는다.     
 
         });
 
     } else if (verification == 2) {
 
 
-        conn.query(ExampleTable, [divide[2], divide[1]], function (err, tmp, fields) {
+        conn.query(update_AppLog, [divide[2], divide[1]], function (err, tmp, fields) {
 
 
-        }); //verification 값이 2 이면 가장 최근에 받은 값을 제외하고 나머지의 hash 값을 전부 update 한다.
+        }); //verification 값이 2 이면 클라이언트에서 받은 로그를 파일명 기준으로 해쉬값을 업데이트한다.
 
     }
 
@@ -142,5 +143,5 @@ function list(p1) {
 
 
 server.listen(9000, function () {
-    console.log('listening on 9000');
+    console.log('listening on 9000'); // 항상 9000번 포트로 서버를 구동하게 한다.
 });
