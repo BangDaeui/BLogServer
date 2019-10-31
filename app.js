@@ -101,12 +101,9 @@ var server = net.createServer(function (socket) { //net 모듈을 이용해 서�
             console.log('err' + err); //서버 에러 알림.
         });
 
-
     })
 
-
-
-}); //서버 계속 구동되게 함
+}); 
 
 function list(p1) {
 
