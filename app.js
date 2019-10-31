@@ -40,6 +40,12 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // [Get] Users
 // 데이터베이스에 있는 사용자 데이터 웹에 보여주기
+app.get('/Refresh', async (req, res) => {
+    res.redirect('/Logs');
+})
+
+// [Get] Users
+// 데이터베이스에 있는 사용자 데이터 웹에 보여주기
 app.get('/Users', async (req, res) => {
     var sql1 = 'select * from User';
 
@@ -74,11 +80,11 @@ app.get('/UserLogs/:id', async (req, res) => {
 app.get('/Logs', async (req, res) => {
     var sql1 = 'select * from User, ApplicationLog where User_No = App_User;';
     conn.query(sql1, function (err, result, fields) {
-            res.render('Logs', {
-                result: result
-                
-            });
+        res.render('Logs', {
+            result: result
+
         });
+    });
 
 })
 
