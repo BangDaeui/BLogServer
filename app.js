@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 
 // path 경로 관련 모듈
+const fs = require('fs');
 const path = require('path');
 
 // net
@@ -32,9 +33,58 @@ app.set('view engine', 'handlebars');
 // Static folder 폴더 사용
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
+// fabric-network
+const { FileSystemWallet, Gateway } = require('fabric-network');
+
+const ccpPath = path.resolve(__dirname, '..', '..', 'basic-network', 'connection.json');
+const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
+const ccp = JSON.parse(ccpJSON);
+
+// main
+var walletPath = null;
+var wallet = null;
+var userExists = null;
+var gateway = null;
+var network = null;
+var contract = null;
+var result = null;
+
 // #################################################################### Hyperledger Fabric SDK
 
+async function main() {
+    try {
 
+        // Create a new file system based wallet for managing identities.
+        walletPath = path.join(process.cwd(), 'wallet');
+        wallet = new FileSystemWallet(walletPath);
+        console.log(`Wallet path: ${walletPath}`);
+
+        // Check to see if we've already enrolled the user.
+        userExists = await wallet.exists('user1');
+        if (!userExists) {
+            console.log('An identity for the user "user1" does not exist in the wallet');
+            console.log('Run the registerUser.js application before retrying');
+            return;
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        gateway = new Gateway();
+        await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+
+        // Get the network (channel) our contract is deployed to.
+        network = await gateway.getNetwork('mychannel');
+
+        // Get the contract from the network.
+        contract = network.getContract('fabcar');
+        result = await contract.evaluateTransaction('queryUserHash', '0');
+        console.log(JSON.parse(result));
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`);
+        process.exit(1);
+    }
+}
+
+main();
 
 // #################################################################### Web Application
 
