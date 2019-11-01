@@ -88,11 +88,41 @@ main();
 
 // #################################################################### Web Application
 
-// [Get] Users
-// 데이터베이스에 있는 사용자 데이터 웹에 보여주기
+// [Get] Refresh
+
 app.get('/Refresh', async (req, res) => {
-    res.redirect('/Logs');
+    var sql1 = 'select * from User';
+    
+    conn.query(sql1, function(err,tmp,fileds) {
+       
+        for (var i = 0; i < tmp.length; i++) {
+            sendone(tmp[i]);
+        }
+    });
 })
+
+function sendone(tt) {
+    console.log(tt.User_IP);
+    var socket = net.connect({port:8000, host:tt.User_IP});
+
+    socket.on('connect', function() {
+        console.log('connected to server');
+
+        socket.write('1');
+
+    })
+
+
+    socket.on('close', function() {
+      console.log('Connection closed');
+    });
+
+    socket.on('error', function(err){
+       console.log(err); 
+    });
+}
+
+
 
 // [Get] Users
 // 데이터베이스에 있는 사용자 데이터 웹에 보여주기
